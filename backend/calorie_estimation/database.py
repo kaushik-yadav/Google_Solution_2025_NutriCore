@@ -32,7 +32,13 @@ class CalorieEntry(Base):
     food_name = Column(String)
     portion = Column(String)
     calories = Column(Integer)
-    timestamp = Column(DateTime, default=datetime.now)
+    protein = Column(Integer)
+    carbs = Column(Integer)
+    fat = Column(Integer)
+    sugars = Column(Integer)
+    fiber = Column(Integer)
+    # Not including microseconds
+    timestamp = Column(DateTime, default=lambda: datetime.now().replace(microsecond=0))
 
     user = relationship("User", back_populates="entries")
 
@@ -48,9 +54,7 @@ class Database:
     def add_user(self, username, daily_calorie_goal=2000):
         existing_user = self.session.query(User).filter_by(username=username).first()
         if existing_user:
-            return (
-                existing_user.id
-            )  # Return existing user ID instead of inserting again
+            return existing_user.id
 
         new_user = User(username=username, daily_calorie_goal=daily_calorie_goal)
         self.session.add(new_user)
@@ -58,15 +62,32 @@ class Database:
             self.session.commit()
         except IntegrityError:
             self.session.rollback()
-            return None  # Handle the error gracefully
+            return None
         return new_user.id
 
-    def add_calorie_entry(self, user_id, food_name, portion, calories, timestamp):
+    def add_calorie_entry(
+        self,
+        user_id,
+        food_name,
+        portion,
+        calories,
+        protein,
+        carbs,
+        fat,
+        sugars,
+        fiber,
+        timestamp,
+    ):
         entry = CalorieEntry(
             user_id=user_id,
             food_name=food_name,
             portion=portion,
             calories=calories,
+            protein=protein,
+            carbs=carbs,
+            fat=fat,
+            sugars=sugars,
+            fiber=fiber,
             timestamp=timestamp,
         )
         self.session.add(entry)

@@ -41,8 +41,10 @@ class CalorieEstimator:
         2. Estimated Fat in it
         3. Estimated Carbohydates in it
         4. Estimated calories.
+        5. Estimated sugars in it.
+        6. Estimated fiber in it.
         Give output in this format : 
-        food: [name], portion: [portion], calories: [number] kcal, protein: [number] g, carbohydrates: [number] g, fat: [number] g. 
+        food: [name], portion: [portion], calories: [number], protein: [number], carbohydrates: [number], fat: [number], sugars: [number], fiber: [number]
         Give no extra text"""
 
         response = self.model.generate_content(prompt)
@@ -55,10 +57,13 @@ class CalorieEstimator:
             food = response_text.split("food:")[1].split(",")[0].strip()
             portion = response_text.split("portion:")[1].split(",")[0].strip()
             calories = response_text.split("calories:")[1].split(",")[0].strip()
-            protein = response_text.split("protein:")[1].strip()
-            carbohydrates = response_text.split("carbohydrates:")[1].strip()
-            fat = response_text.split("fat:")[1].strip()
-
+            protein = response_text.split("protein:")[1].split(",")[0].strip()
+            carbohydrates = (
+                response_text.split("carbohydrates:")[1].split(",")[0].strip()
+            )
+            fat = response_text.split("fat:")[1].split(",")[0].strip()
+            sugars = response_text.split("sugars:")[1].split(",")[0].strip()
+            fiber = response_text.split("fiber:")[1].split(",")[0].strip()
             return {
                 "food": food,
                 "portion": portion,
@@ -66,6 +71,8 @@ class CalorieEstimator:
                 "protein": protein,
                 "carbohydrates": carbohydrates,
                 "fat": fat,
+                "sugars": sugars,
+                "fiber": fiber,
             }
         except Exception as e:
             print(f"Error parsing response: {str(e)}")
@@ -79,6 +86,11 @@ class CalorieEstimator:
                 food_name=food_data["food"],
                 portion=food_data["portion"],
                 calories=food_data["calories"],
+                protein=food_data["protein"],
+                carbs=food_data["carbohydrates"],
+                fat=food_data["fat"],
+                sugars=food_data["sugars"],
+                fiber=food_data["fiber"],
                 timestamp=datetime.now(),
             )
             return True

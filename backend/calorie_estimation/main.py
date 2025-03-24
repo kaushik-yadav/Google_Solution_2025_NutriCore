@@ -30,6 +30,8 @@ def main():
                 print(f"- Protein: {result['protein']} g")
                 print(f"- Carbs: {result['carbohydrates']} g")
                 print(f"- Fat: {result['fat']} g")
+                print(f"- Sugars: {result['sugars']} g")
+                print(f"- Fiber: {result['fiber']} g")
                 estimator.log_calories(result, user_id)
             else:
                 print("Failed to estimate calories. Please try again.")
