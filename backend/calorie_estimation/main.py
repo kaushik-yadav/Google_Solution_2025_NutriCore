@@ -1,5 +1,7 @@
 from calorie_estimator import CalorieEstimator
 from database import Database
+import os
+import requests
 
 
 def main():
@@ -14,63 +16,55 @@ def main():
     while True:
         print("\n=== Calorie Estimation System ===")
         print("1. Estimate calories from text")
-        print("2. Estimate calories from image")
+        print("2. Estimate calories from image (Upload)")
         print("3. View today's summary")
         print("4. Exit")
 
         choice = input("\nEnter your choice (1-4): ")
 
         if choice == "1":
-            # Text-based estimation
             food_desc = input("Enter food description (e.g., '2 cups of rice'): ")
             result = estimator.estimate_from_text(food_desc)
             if result:
-                print(f"\nEstimated Nutritional Values:")
-                print(f"- Calories: {result['calories']} kcal")
-                print(f"- Protein: {result['protein']} g")
-                print(f"- Carbs: {result['carbohydrates']} g")
-                print(f"- Fat: {result['fat']} g")
-                print(f"- Sugars: {result['sugars']} g")
-                print(f"- Fiber: {result['fiber']} g")
+                print("\nEstimated Nutritional Values:")
+                for key, value in result.items():
+                    print(f"- {key.capitalize()}: {value}")
                 estimator.log_calories(result, user_id)
             else:
                 print("Failed to estimate calories. Please try again.")
 
         elif choice == "2":
-            # Image-based estimation with error handling
-            image_path = input("Enter the path to your food image: ")
-            try:
-                result = estimator.estimate_from_image(image_path)
+            print("Please upload an image file (JPEG, PNG, etc.)")
+            file_name = input(
+                "Enter the image file name (ensure it's in the same directory): "
+            )
+
+            if not os.path.isfile(file_name):
+                print("File not found. Ensure the file exists and try again.")
+                continue
+            print(file_name)
+            food_item = estimator.analyze_food_image(file_name)
+            print("this is the itentified food item :", food_item)
+            if food_item:
+                print(f"Detected food: {food_item}")
+                serving_size = input(
+                    f"Enter serving size for {food_item} (e.g., '1 plate', '200 grams'): "
+                )
+                query = f"{serving_size} of {food_item}"
+                result = estimator.estimate_from_text(query)
                 if result:
-                    print(f"\nEstimated Nutritional Values:")
-                    print(f"- Calories: {result['calories']} kcal")
-                    print(f"- Protein: {result['protein']} g")
-                    print(f"- Carbs: {result['carbohydrates']} g")
-                    print(f"- Fat: {result['fat']} g")
+                    print("\nEstimated Nutritional Values:")
+                    for key, value in result.items():
+                        print(f"- {key.capitalize()}: {value}")
                     estimator.log_calories(result, user_id)
                 else:
-                    raise ValueError("Failed to process image.")
-            except Exception as e:
-                print(f"Error processing image: {e}")
+                    print("Failed to estimate calories.")
+            else:
                 print(
-                    "Image-based estimation failed. Please enter the food details manually."
+                    "Could not recognize the food item. Try again with a clearer image."
                 )
 
-                # Ask user for text input instead
-                food_desc = input("Enter food description (e.g., '2 cups of rice'): ")
-                result = estimator.estimate_from_text(food_desc)
-                if result:
-                    print(f"\nEstimated calories: {result['calories']}")
-                    print(f"Food: {result['food']}")
-                    print(f"Portion: {result['portion']}")
-                    estimator.log_calories(result, user_id)
-                else:
-                    print(
-                        "Failed to estimate calories from text as well. Please try again."
-                    )
-
         elif choice == "3":
-            # View daily summary
             summary = estimator.get_daily_summary(user_id)
             print("\n=== Today's Summary ===")
             print(f"Total calories: {summary['total_calories']}")
