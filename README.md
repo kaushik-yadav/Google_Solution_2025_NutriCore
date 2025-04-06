@@ -1,69 +1,77 @@
-# Welcome to your Lovable project
+# NutriCore – Your AI-Powered Fitness & Nutrition Companion 🧠💪
 
-## Project info
+**NutriCore** is a Progressive Web App (PWA) designed to be your all-in-one platform for managing fitness, nutrition, and health insights—powered by AI and smart integrations. From food tracking and posture correction to smartwatch sync and social motivation, NutriCore delivers a truly connected health experience.
 
-**URL**: https://lovable.dev/projects/0d695285-6f7b-4977-86af-fb46ddca5bb4
+---
 
-## How can I edit this code?
+## 🚀 Features
 
-There are several ways of editing your application.
+### 🏋️‍♀️ Workouts
+- Posture correction and rep-counting using OpenCV + Mediapipe
+- Cardio, Strength, Yoga, HIIT with progress tracking
+- Voice-based workout feedback
 
-**Use Lovable**
+### 🍎 Nutrition
+- Track food via photo, upload, or manual input
+- Uses **LogMeal Food AI API** to identify food items
+- Fetches nutrition data using **Gemini 1.5 Flash Pro API**
+- Personalized diet plans and nutrition analysis (daily/weekly/monthly)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0d695285-6f7b-4977-86af-fb46ddca5bb4) and start prompting.
+### 📱 Device Integration
+- Syncs with smartwatches and fitness wearables
+- Retrieves steps, heart rate, calories, and sleep data
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🧑‍🤝‍🧑 Social & Motivation
+- Leaderboards, challenges, and achievement tracking
+- Friend activity and fitness goals
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🧰 Tech Stack
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
+### Frontend:
+- React (TSX)
 - Vite
-- TypeScript
-- React
-- shadcn-ui
 - Tailwind CSS
+- PWA support for installability and offline access
 
-## How can I deploy this project?
+### Backend:
+- Supabase
+  - Auth
+  - Realtime DB
+  - File Storage (image uploads)
 
-Simply open [Lovable](https://lovable.dev/projects/0d695285-6f7b-4977-86af-fb46ddca5bb4) and click on Share -> Publish.
+### AI & APIs:
+- **OpenCV + Mediapipe** (Workout posture tracking)
+- **LogMeal Food AI API** (Food detection)
+- **Gemini 1.5 Flash Pro API** (Nutritional insights)
+- **Google Fit API**, **Apple HealthKit**, **Fitbit API**, **Samsung Health SDK** (Device sync)
 
-## I want to use a custom domain - is that possible?
+---
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## 📈 Future Developments
+
+- Nearby fitness trainer & nutritionist discovery
+- Smart calorie alerts and reminders
+- Personalized push notifications based on daily activity
+- Advanced performance analytics dashboard
+- Community-created workouts and wellness challenges
+
+---
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change or add.
+
+---
+
+## 📬 Contact
+
+Feel free to reach out at kaushiky005@gmail.com for suggestions, feedback, or collaboration opportunities.
+
